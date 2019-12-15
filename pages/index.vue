@@ -12,7 +12,7 @@
     <div class="banner">
       <div class="swiper-container">
         <div class="swiper-wrapper">
-          <div class="swiper-slide" v-for="(ele,index) in banner" :key="index" :style="'background-image:url(http://localhost:53000/'+ele.img+')'"></div>
+          <div class="swiper-slide" v-for="ele in banner" :key="ele.id" :style="'background-image:url(http://localhost:53000/'+ele.img+')'"></div>
         </div>
         <!-- Add Pagination -->
         <div class="swiper-pagination swiper-pagination-white"></div>
@@ -21,7 +21,12 @@
     <div class="list">
       <div class="swiper-container2">
         <div class="swiper-wrapper">
-          <div class="swiper-slide" v-for="(ele,index) in banner" :key="index" :style="'background-image:url(http://localhost:53000/'+ele.img+')'"></div>
+          <div class="swiper-slide" v-for="(ele,index) in List" :key="index">
+            <nuxt-link to='/search' v-for="ele1 in ele" :key="ele1.id">
+              <img :src="'http://localhost:53000/'+ele1.img" :alt="ele1.title">
+              <span>{{ele1.title}}</span>
+            </nuxt-link>
+          </div>
         </div>
         <!-- Add Pagination -->
         <div class="swiper-pagination"></div>
@@ -36,27 +41,15 @@
         <nuxt-link to="/search"><span>查看更多</span><i class="fa fa-caret-right"></i></nuxt-link>
       </div>
       <div class="public">
-          <nuxt-link to='/search' class="xueba"><img src="/images/xueba.png" alt="xueba"></nuxt-link>
-        <div>
-          <nuxt-link to='/search' class="siliu"><img src="/images/siliu.png" alt="siliu"></nuxt-link>
-          <nuxt-link to='/search' class="fayu"><img src="/images/fayu.png" alt="fayu"></nuxt-link>
-        </div>
+          <nuxt-link to='/search' v-for="ele in Public" :key="ele.id" :class="ele.title"><img :src="'http://localhost:53000/'+ele.img" :alt="ele.title"></nuxt-link>
       </div>
       <div class="improveQuick">
-        <nuxt-link to='/search'>
-          <p>【中考物理】两字巧解电阻测量实验</p>
+        <nuxt-link to='/search' v-for="(ele,index) in Today" :key="index">
+          <p>{{ele.title}}</p>
           <div>
-            <img src="/images/person1.png" alt="person">
-            <span>姜牧</span>
-            <img src="/images/detail.png" alt="detail">
-          </div>
-        </nuxt-link>
-        <nuxt-link to='/search'>
-          <p>【中考物理】两字巧解电阻测量实验</p>
-          <div>
-            <img src="/images/person1.png" alt="person">
-            <span>姜牧</span>
-            <img src="/images/detail.png" alt="detail">
+            <img :src="'http://localhost:53000/'+ele.img" alt="person">
+            <span>{{ele.name}}</span>
+            <img src="https://shared-https.ydstatic.com/ke/wap/v2.4.5/9cf788d02d34169fbdf84bf744f7072a.png" alt="detail">
           </div>
         </nuxt-link>
       </div>
@@ -68,95 +61,35 @@
         <nuxt-link to="/search"><span>查看更多</span><i class="fa fa-caret-right"></i></nuxt-link>
       </div>
       <div class="selection">
-        <nuxt-link to='/search'>
+        <nuxt-link to='/search' v-for="(ele,index) in Selection" :key="ele.id">
           <div class="kemu">
-            <span class="kemuName">逻辑英语</span>
-            <span class="CLASSNAME">逻辑英语·系统3班</span>
+            <span class="kemuName">{{ele.kemuName}}</span>
+            <span class="CLASSNAME">{{ele.CLASSNAME}}</span>
           </div>
           <div class="time">
-            <span>开课时间：2019-12-26 20:08:00</span>
-            <span class="keshi">180课时</span>
+            <span>开课时间：{{ele.startTime}}</span>
+            <span class="keshi">{{ele.keshi}}</span>
           </div>
           <div class="info">
             <div class="teachers">
-              <div class="teacher">
-                <img src="/images/person1.png" alt="teacher">
-                <span>钟平</span>
-              </div>
-              <div class="teacher">
-                <img src="/images/person1.png" alt="teacher">
-                <span>钟平</span>
+              <div class="teacher" v-for="ele1 in ele.teacher" :key="ele1._id">
+                <img :src="'http://localhost:53000/'+ele1.img" alt="teacher">
+                <span>{{ele1.name}}</span>
               </div>
             </div>
             <div class="info1">
-              <div class="money">
-                <del>¥7560</del>
-                <span>¥<span class="discount">3980</span></span>
+              <div class="money" v-if="ele.newPrice">
+                <del v-if="ele.oldPrice">¥{{ele.oldPrice}}</del>
+                <span>¥<span class="discount">{{ele.newPrice}}</span></span>
               </div>
-              <div class="time1">
-                剩<span>{{Time[0]}}</span>恢复原价
+              <div class="money" v-else>
+                <i class="over">售罄</i>
               </div>
-            </div>
-          </div>
-        </nuxt-link>
-        <nuxt-link to='/search'>
-          <div class="kemu">
-            <span class="kemuName">逻辑英语</span>
-            <span class="CLASSNAME">逻辑英语·系统3班</span>
-          </div>
-          <div class="time">
-            <span>开课时间：2019-12-26 20:08:00</span>
-            <span class="keshi">180课时</span>
-          </div>
-          <div class="info">
-            <div class="teachers">
-              <div class="teacher">
-                <img src="/images/person1.png" alt="teacher">
-                <span>钟平</span>
+              <div class="time1" v-if="ele.endTime">
+                剩<span>{{Time[index]}}</span>恢复原价
               </div>
-              <div class="teacher">
-                <img src="/images/person1.png" alt="teacher">
-                <span>钟平</span>
-              </div>
-            </div>
-            <div class="info1">
-              <div class="money">
-                <del>¥7560</del>
-                <span>¥<span class="discount">3980</span></span>
-              </div>
-              <div class="time1">
-                剩<span>{{Time[1]}}</span>恢复原价
-              </div>
-            </div>
-          </div>
-        </nuxt-link>
-        <nuxt-link to='/search'>
-          <div class="kemu">
-            <span class="kemuName">逻辑英语</span>
-            <span class="CLASSNAME">逻辑英语·系统3班</span>
-          </div>
-          <div class="time">
-            <span>开课时间：2019-12-26 20:08:00</span>
-            <span class="keshi">180课时</span>
-          </div>
-          <div class="info">
-            <div class="teachers">
-              <div class="teacher">
-                <img src="/images/person1.png" alt="teacher">
-                <span>钟平</span>
-              </div>
-              <div class="teacher">
-                <img src="/images/person1.png" alt="teacher">
-                <span>钟平</span>
-              </div>
-            </div>
-            <div class="info1">
-              <div class="money">
-                <del>¥7560</del>
-                <span>¥<span class="discount">3980</span></span>
-              </div>
-              <div class="time1">
-                剩<span>{{Time[2]}}</span>恢复原价
+              <div class="time1" v-if="ele.number">
+                已有{{ele.number}}人购买
               </div>
             </div>
           </div>
@@ -173,9 +106,13 @@ import  axios from "axios"
 export default {
   data(){
     return{
-      Endtime:["2019-12-15 16:00:00","2019-12-16 16:00:00","2019-12-17 15:00:00"],
       Time:[],
-      banner:[]
+      banner:[],
+      list:[],
+      List:[],
+      Public:[],
+      Today:[],
+      Selection:[]
     }
   },
   methods:{
@@ -186,7 +123,7 @@ export default {
         return obj
       }
     },
-    endTime(endtime){
+    endTime(endtime,index){
         var time,day,hour,minute,second,time1;
         time = new Date(endtime).getTime()-new Date().getTime();
         if(time*1>0){
@@ -199,7 +136,7 @@ export default {
           }else{
             time1 = day+"天"+this.double(hour)+":"+this.double(minute)+":"+this.double(second);
           }
-          this.Time.push(time1);
+          this.Time[index]=time1;
         }else{
           time1="活动已结束"
         }
@@ -222,16 +159,31 @@ export default {
           clickable: true
         }
       });
-    })
+    },1000)
+    let { data } = await axios.get('http://localhost:53000/goods');
+    this.banner = data.banner;
+    this.list = data.list;
+    this.Public = data.public;
+    this.Today = data.today;
+    this.Selection = data.selection;
+    if(this.list.length>8){
+      var num = parseInt(this.list.length/8);
+      for(var i=0;i<num;i++){
+        this.List[i]=this.list.splice(0,8)
+      }
+      this.List.push(this.list);
+    }else{
+      this.List.push(this.list);
+    }
     setInterval(()=>{
       this.Time = [];
-      this.Endtime.map((ele)=>{
-        this.endTime(ele);
+      this.Selection.map((ele,index)=>{
+        // console.log(!!ele.endTime);
+        if(!!ele.endTime){
+          this.endTime(ele.endTime,index)
+        }
       })
     },1000)
-    let { data } = await axios.get('http://localhost:53000/banner');
-    // console.log(data);
-    this.banner = data;
   }
 };
 </script>
@@ -297,8 +249,21 @@ export default {
     height: 2.9rem;
   }
   .swiper-slide {
-    background-position: center;
-    background-size: cover;
+    display: flex;
+    flex-wrap: wrap;
+    a{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 50%;
+      width: 25%;
+      img{
+        width: .61rem;
+        height: .61rem;
+        margin-bottom: .1rem;
+      }
+    }
   }
 }
 .main{
@@ -326,13 +291,14 @@ export default {
     }
   }
   .public{
-    display: flex;
+    overflow: hidden;
     a{
-      display: block;
+      display: inline-block;
       width: 3.33rem;
     }
     .xueba{
       height: 4.34rem;
+      float: left;
       img{
         width: 100%;
         height: 100%;
@@ -348,13 +314,15 @@ export default {
   }
   .improveQuick{
     display: flex;
+    flex-wrap: wrap;
+    margin-bottom: .4rem;
     a{
       display: block;
       width: 50%;
       height: 2.1rem;
       p{
         color: #36404a;
-        font-size: .3rem;
+        font-size: .32rem;
         padding: .2rem .2rem 0;
       }
       div{
@@ -411,6 +379,7 @@ export default {
             display: flex;
             flex-direction: column;
             margin-right: .2rem;
+            align-items: center;
             img{
               width: .46rem;
               height: .46rem;
@@ -421,8 +390,10 @@ export default {
         .info1{
           text-align: right;
           .money{
+            .over{font-size: .35rem;}
             span{
               color: #ff773a;
+              font-weight: bold;
               margin-left: .2rem;
               .discount{
                 margin-left: .02rem;
