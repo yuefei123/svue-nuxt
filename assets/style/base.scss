@@ -1,0 +1,38 @@
+html,body,h1,h2,h3,h4,h4,h5,h6,img,ul,li,form,input,header,section,a,p,figure,figcaption{
+	margin: 0;padding: 0;
+}
+html,body,#__nuxt,#__layout,.container{
+    height: 100%;
+	color: black;
+	font-size: .3rem;
+}
+i,em{
+	font-style: normal;
+}
+b,strong,h1,h2,h3,h4,h4,h5,h6{
+	font-weight: normal;
+}
+a{
+	text-decoration: none;
+	font-size: .24rem;
+	color: #6c6c6c;
+}
+li{
+	list-style: none;
+}
+.clearfix{
+	*zoom: 1;
+}
+.clearfix:after{
+	content:'';
+	display: block;
+	height: 0;
+	clear: both;
+	overflow: hidden;
+}
+input{
+	border: none;
+	outline:none;
+  }
+
+

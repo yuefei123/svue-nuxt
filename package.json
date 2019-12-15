@@ -1,0 +1,22 @@
+{
+  "name": "svue-nuxt",
+  "version": "1.0.0",
+  "description": "My epic Nuxt.js project",
+  "author": "无天",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate"
+  },
+  "dependencies": {
+    "axios": "^0.19.0",
+    "nuxt": "^2.0.0",
+    "swiper": "^5.2.1"
+  },
+  "devDependencies": {
+    "node-sass": "^4.13.0",
+    "sass-loader": "^8.0.0"
+  }
+}
